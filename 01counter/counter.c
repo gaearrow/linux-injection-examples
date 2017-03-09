@@ -1,11 +1,12 @@
 /********************************
-**filename:counter.c
-**OS:CentOS 5.3 x86_64
-**GCC:version 4.1.2 20080704 (Red Hat 4.1.2-44)
-**gcc -o counter counter.c
-**ps -aux | grep counter
+* Filename	: counter.c
+* Author	: Gaearrow
+* Version	: 1.0
+* Abstract	: The process to be injected
+* Platform	: gcc 4.1.2 based on CentOS 5.3 x86_64(20170217)
+* Compiling	: gcc -o counter counter.c
+* Usage		: ./counter
 ********************************/
-
 
 #include <sys/time.h>
 #include <stdio.h>

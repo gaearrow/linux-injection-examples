@@ -1,9 +1,11 @@
 /********************************
-**filename:readripx64.c
-**OS:CentOS 5.3 x86_64
-**GCC:version 4.1.2 20080704 (Red Hat 4.1.2-44)
-**gcc -o readripx64 readripx64.c
-**./readripx64 <pid>
+* Filename	: readripx64.c
+* Author	: Gaearrow
+* Version	: 1.0
+* Abstract	: Read the rip of the specified process
+* Platform	: gcc 4.1.2 based on CentOS 5.3 x86_64(20170217)
+* Compiling	: gcc -o readripx64 readripx64.c
+* Usage		: ./readripx64 <pid>
 ********************************/
 
 #include <sys/ptrace.h>
@@ -15,30 +17,32 @@
 
 int main(int argc, char *argv[])
 { 
-    pid_t pid;
-    struct user_regs_struct regs;
+	pid_t pid;
+	struct user_regs_struct regs;
 	
-	// Process Input
-    if(argc != 2) {
-        printf("useage: ./readripx64 <pid> \n");
-        return 1;
-    }    
-    pid = atoi(argv[1]);
+	/* Process Input */
+	if(argc != 2) {
+		printf("usage: ./readripx64 <pid> \n");
+		return 1;
+	}	
+	pid = atoi(argv[1]);
 
-    // Attach to the process
-    ptrace(PTRACE_ATTACH, pid, NULL, NULL);
-    if (pid != wait(NULL)){
-        printf("Attach unsuccessfully!\n");
+	/* Attach to the process */
+	ptrace(PTRACE_ATTACH, pid, NULL, NULL);
+	if (pid != wait(NULL)){
+		printf("Attach unsuccessfully!\n");
 		return 1;
 	}else
-    	printf("Attach to the process specified in pid %d Successfully!\n",pid);
+	{
+		printf("Attach to the specified process pid %d successfully!\n",pid);
+	}
 
-	// Read REGS & Output RIP
-    ptrace(PTRACE_GETREGS, pid, NULL, &regs);
+	/* Read REGS & Output RIP */
+	ptrace(PTRACE_GETREGS, pid, NULL, &regs);
 	printf("Instruction pointer(rip): %lx \n", regs.rip);
 	
-	// Recover the Process
-    ptrace(PTRACE_DETACH, pid, NULL, NULL);
+	/* Recover the Process */
+	ptrace(PTRACE_DETACH, pid, NULL, NULL);
 
-    return 0;
+	return 0;
 }

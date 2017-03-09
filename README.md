@@ -5,7 +5,7 @@ counter		: The process to be injected
 
 > ./counter
 
-readripx64	: Read the rip of process specified in pid
+readripx64	: Read the rip of the specified process
 
 > ./readripx64 pid
 
